@@ -1,0 +1,31 @@
+$vs2022 = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.exe"
+$vs2022WorkDir = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\"
+
+$vs2022Preview = "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\devenv.exe" 
+$vs2022WorkDirPreview = "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\"
+
+$command = ""
+if (-not ([string]::IsNullOrEmpty($args[0]))) {
+    $command = $args[0]
+}
+
+if ($command -eq "") {
+    ""
+    "*** Please Select a Valid Command ***"
+    exit
+}
+
+$application = $vs2022
+$workDir = $vs2022WorkDir
+$solutionPath = "";
+if ($command -eq "web") {
+    $application = "code"
+    $workDir = "C:\Users\jason\AppData\Local\Programs\Microsoft VS Code"
+    $solutionPath = "C:\Code\Web\Clock\."
+}
+
+if ($command -eq "vb") {
+    $solutionPath = "C:\Code\Investigation\VBWebApplication2\VBWebApplication2.sln"
+}
+
+Start-Process $application -WorkingDirectory $workDir -ArgumentList `"$($solutionPath)`"
